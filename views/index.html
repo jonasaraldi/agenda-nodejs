@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html data-ng-app="app">
+<head>
+	<title>Agenda</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+	<script src="/vendors/angularjs/angular.min.js" type="text/javascript"></script>
+	<script src="/vendors/angularjs/angular-resource.min.js" type="text/javascript"></script>
+	<script src="/js/controllers/app.js" type="text/javascript"></script>
+	<script src="/js/services/ContactService.js" type="text/javascript"></script>
+	<script src="/js/controllers/MainController.js" type="text/javascript"></script>
+</head>
+<body data-ng-controller="MainController">
+	<div class="container" style="margin-top: 50px">
+		<div class="row">
+			<div class="col-md-4">
+				<form role="form">
+					<div class="form-group">
+						<label>Nome</label>
+						<input type="text" data-ng-model="current.name" class="form-control" />
+					</div>
+					<div class="form-group">
+						<label>Endereço</label>
+						<input type="text" data-ng-model="current.address" class="form-control" />
+					</div>
+					<div class="form-group">
+						<label>Telefones</label>
+						<input type="text" data-ng-model="current.phones" class="form-control" />
+					</div>
+					<div class="form-group">
+						<label>Emails</label>
+						<input type="text" data-ng-model="current.emails" class="form-control" />
+					</div>
+					<button type="button" class="btn btn-primary" data-ng-click="saveContact()">Adicionar</button>
+					</form>
+			</div>
+			<div class="col-md-8">
+				<table class="table table-striped">
+					<thead>
+						<tr>
+							<th>Nome</th>
+							<th>Endereço</th>
+							<th>Telefones</th>
+							<th>Emails</th>
+							<th>&nbsp;</th>
+							<th>&nbsp;</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr data-ng-repeat="contact in contacts">
+							<td>{{ contact.name }}</td>
+							<td>{{ contact.address }}</td>
+							<td>{{ contact.phones }}</td>
+							<td>{{ contact.emails }}</td>
+							<td>
+								<button type="button" class="btn btn-default" data-ng-click="updateContact(contact)">Editar</button>
+							</td>
+							<td>
+								<button type="button" class="btn btn-default" data-ng-click="deleteContact(contact)">Excluir</button>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>		
+	</div>
+</body>
+</html>
