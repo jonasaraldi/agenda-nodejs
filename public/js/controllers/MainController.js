@@ -4,13 +4,22 @@ app.controller('MainController',
 		$scope = $scope || {};
 
 		var isUpdate = false;
+		$scope.contacts = [];
 		$scope.current = {
 			name: '',
 			address: '',
-			phones: '',
-			emails: ''
+			phones: [],
+			emails: []
 		};
-		$scope.contacts = [];
+
+		function _resetCurrent() {
+			$scope.current = {
+				name: '',
+				address: '',
+				phones: [],
+				emails: []
+			};
+		}
 
 		function _getContacts(){
 			ContactService.get(function(response){
@@ -19,8 +28,9 @@ app.controller('MainController',
 		}
 
 		$scope.saveContact = function() {
-			$scope.current.phones = $scope.current.phones.split(';');
-			$scope.current.emails = $scope.current.emails.split(';');
+			console.log($scope.current);
+			$scope.current.phones = (typeof $scope.current.phones == 'array') ? $scope.current.phones.split(',') : $scope.current.phones;
+			$scope.current.emails = (typeof $scope.current.emails == 'array') ? $scope.current.emails.split(',') : $scope.current.emails; 
 
 			if(isUpdate) {
 				ContactService.update({
@@ -32,12 +42,12 @@ app.controller('MainController',
 				ContactService.create($scope.current);
 			}
 
+			_resetCurrent();
 			_getContacts();
 		};
 
 		$scope.updateContact = function(contact) {
 			$scope.current = angular.copy(contact);
-			console.log($scope.current);
 			isUpdate = true;
 		};
 

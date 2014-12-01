@@ -4,10 +4,8 @@ module.exports = function(app) {
 	var ContactController = {
 		index: function(req,res) {
 			Contact.find({}, function (error, contacts){
-				if(error){
-					res.status(500,error);
-					return;
-				}
+				if(error)
+					return res.status(500,error);
 
 				res.send(contacts);
 			});
@@ -15,28 +13,22 @@ module.exports = function(app) {
 		create: function(req,res) {
 			var contact = new Contact(req.body);
 			contact.save(function(error, contact) {
-				if(error) {
-					res.status(500,error);
-					return;
-				}
-
+				if(error)
+					return res.status(500,error);
+		
 				res.send({ message: 'Cadastrado com sucesso' });
 			});
 		},
 		destroy: function(req,res) {
 			var id = req.params.id;
-			console.log(id);
 			Contact.findById(id, function(error, contact){
-				if(error){
-					res.status(500,error);
-					return;
-				}
+				if(error)
+					return res.status(500,error);
 
 				if (!contact) {
 					res.send({ message: 'Contato não existe' });
 					return;
 				}
-
 				contact.remove(function(){
 					res.send({ message: 'Removido com sucesso' });
 				});
@@ -46,11 +38,13 @@ module.exports = function(app) {
 			var id = req.params.id;
 			Contact.findById(id, function(error, contact){
 				if(error){
-					res.status(500,error);
-					return;
-				}
+					return res.status(500,error);
+				
+				contact.name = req.body.name;
+				contact.address = req.body.address;
+				contact.phones = req.body.phones;
+				contact.emails = req.body.emails;
 
-				contact = req.body;
 				contact.save(function(error) {
 					if(!error)
 						res.send({ message: 'Editado com sucesso' });

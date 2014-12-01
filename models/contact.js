@@ -1,8 +1,7 @@
 module.exports = function(app) {
 	var mongoose = require('mongoose');
-	var Schema = mongoose.Schema;
 
-	var contact = Schema({
+	var contact = mongoose.Schema({
 		name: { type: String },
 		address: { type: String },
 		phones: [{ type: String }],
