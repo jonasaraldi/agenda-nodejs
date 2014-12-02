@@ -25,10 +25,9 @@ module.exports = function(app) {
 				if(error)
 					return res.status(500,error);
 
-				if (!contact) {
-					res.send({ message: 'Contato não existe' });
-					return;
-				}
+				if (!contact)
+					return res.send({ message: 'Contato não existe' });
+					
 				contact.remove(function(){
 					res.send({ message: 'Removido com sucesso' });
 				});
@@ -37,7 +36,7 @@ module.exports = function(app) {
 		update: function(req,res) {
 			var id = req.params.id;
 			Contact.findById(id, function(error, contact){
-				if(error){
+				if(error)
 					return res.status(500,error);
 				
 				contact.name = req.body.name;

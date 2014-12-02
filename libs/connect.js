@@ -6,7 +6,7 @@ var urls = {
 };
 
 module.exports = function() {  
-	var url = urls['local'];
+	var url = urls['remote'];
 
 	var db = mongoose.connection;
 	db.on('error', console.error.bind(console, 'connection error:'));
